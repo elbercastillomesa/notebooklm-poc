@@ -2,7 +2,15 @@
 
 An imitation of the NotebookLM tool.
 
-## Project Structure
+## Try it out:
+
+1. Click on the following link
+  https://gitpod.io/#https://github.com/elbercastillomesa/notebooklm-poc/
+1. Your environment is being prepared, wait about 40 seconds (A splash screen will appear)
+1. VScode IDE will be displayed
+1. :tada:
+
+## Project Structure (WIP)
 
 ```
 /notebooklm-poc
