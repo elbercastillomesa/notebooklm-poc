@@ -1,24 +1,37 @@
 image: gitpod/workspace-full
 
 tasks:
-  - name: Install Backend Dependencies
-    command: pip install -r backend/requirements.txt
+  - name: Frontend Setup
+    init: |
+      cd frontend
+      npm install
+      npm run build
+    command: |
+      cd frontend
+      npm run dev
 
-  - name: Install Frontend Dependencies
-    command: cd frontend && npm install
-
-  - name: Start Backend
-    command: cd backend && pip install -r requirements.txt && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
-    
-  - name: Start Frontend
-    command: cd frontend && npm install && npm run dev
+  - name: Backend Setup
+    init: |
+      cd backend
+      pip install -r requirements.txt
+    command: |
+      cd backend
+      uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
 ports:
-  - port: 8000
-    onOpen: open-preview
   - port: 5173
+    onOpen: open-preview
+    visibility: public
+    name: Frontend
+    description: Frontend React App
+  - port: 8000
     onOpen: open-browser
+    visibility: public
+    name: Backend API
+    description: FastAPI Backend
 
 vscode:
   extensions:
+    - dbaeumer.vscode-eslint
+    - esbenp.prettier-vscode
     - ms-python.python
