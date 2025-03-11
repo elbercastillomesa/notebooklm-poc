@@ -184,13 +184,17 @@ export default function RightSidebar() {
               <div className="flex items-center mb-2">
                 <Thermometer className="h-4 w-4 text-purple-400 mr-2" />
                 <label className="text-sm text-gray-900 dark:text-white">Temperature</label>
+                <span className="ml-auto text-sm text-gray-900 dark:text-white">{temperature}</span>
               </div>
               <div className="flex items-center">
                 <input
-                  type="number"
+                  type="range"
+                  min="0"
+                  max="2"
+                  step="0.1"
                   value={temperature}
                   onChange={(e) => setTemperature(e.target.value)}
-                  className="w-16 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md py-1 px-2 text-sm text-center text-gray-900 dark:text-white"
+                  className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-600"
                 />
               </div>
             </div>

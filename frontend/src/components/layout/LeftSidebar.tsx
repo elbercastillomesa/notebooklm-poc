@@ -1,5 +1,5 @@
 import { BarChart2, FileText, Grid, Home, LayoutGrid, LogOut, Plus, Trash2 } from "lucide-react"
-import Link from "next/link"
+import { Link } from "@heroui/link";
 
 export default function LeftSidebar() {
   return (
@@ -14,7 +14,6 @@ export default function LeftSidebar() {
           </div>
         </div>
       </div>
-
       <nav className="flex-1 overflow-y-auto p-2">
         <ul className="space-y-1">
           <li>
@@ -115,7 +114,6 @@ export default function LeftSidebar() {
           </ul>
         </div>
       </nav>
-
       <div className="p-4 border-t border-gray-300 dark:border-gray-800">
         <button className="flex items-center px-3 py-2 text-sm rounded-md text-gray-700 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-800 w-full">
           <Trash2 className="mr-2 h-4 w-4 text-gray-500 dark:text-gray-400" />
