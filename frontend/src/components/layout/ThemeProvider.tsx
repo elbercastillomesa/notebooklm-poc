@@ -9,6 +9,8 @@ type ThemeProviderProps = {
   children: React.ReactNode
   defaultTheme?: Theme
   storageKey?: string
+  propmtText?: string
+  apiResponse?: string
 }
 
 type ThemeProviderState = {
