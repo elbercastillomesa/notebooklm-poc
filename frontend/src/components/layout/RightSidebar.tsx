@@ -1,6 +1,6 @@
 "use client"
 
-import { Check, ChevronDown, Cpu, Sparkles, SquareUserRound, Thermometer, Zap } from "lucide-react"
+import { Check, ChevronDown, ChevronRight, Cpu, Sparkles, SquareUserRound, Thermometer, Zap } from "lucide-react"
 import { useState } from "react"
 import Header from "./Header"
 
@@ -14,6 +14,7 @@ export default function RightSidebar( { promptObject, setPromptObject, validateF
   const [selectedTemplate, setSelectedTemplate] = useState("Enterprise SaaS")
   const [creativity, setCreativity] = useState("1")
   const [selectedModel, setSelectedModel] = useState(model_list[0])
+  const [isClientInfoOpen, setIsClientInfoOpen] = useState(true)
 
   return (
     <div className="w-80 bg-white dark:bg-black border-l border-gray-300 dark:border-gray-800 overflow-y-auto p-4">
@@ -21,79 +22,81 @@ export default function RightSidebar( { promptObject, setPromptObject, validateF
       <div className="space-y-6">
         {/* Client Information Section */}
         <div>
-          <div className="flex items-center mb-4">
+          <div className="flex items-center mb-4 cursor-pointer" onClick={() => setIsClientInfoOpen(!isClientInfoOpen)}>
             <div className="h-5 w-5 rounded-full bg-blue-600 flex items-center justify-center text-xs mr-2">
-              <Check className="h-3 w-3" />
+              {isClientInfoOpen ? <ChevronDown strokeWidth={4} className="h-3 w-3" /> : <ChevronRight strokeWidth={4} className="h-3 w-3" />}
             </div>
             <h2 className="text-lg font-medium text-gray-900 dark:text-white">Client Information</h2>
             <SquareUserRound className="h-4 w-4 text-blue-400 ml-2" />
           </div>
 
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm mb-1 text-gray-700 dark:text-gray-300">Client Name</label>
-              <input
-                type="text"
-                placeholder="Enter client company name"
-                value={promptObject.client_name}
-                className="w-full bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md py-2 px-3 text-sm text-gray-900 dark:text-white placeholder-gray-500"
-                onChange={ (e) => setPromptObject( { ...promptObject, client_name : e.target.value } ) }
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm mb-1 text-gray-700 dark:text-gray-300">Country</label>
-              <div className="relative">
-                <select 
-                  className="w-full bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md py-2 pl-3 pr-10 text-sm text-gray-900 dark:text-white appearance-none"
-                  value={promptObject.country}
-                  onChange={ (e) => setPromptObject( { ...promptObject, country : e.target.value } ) }
-                >
-                    <option>Select country</option>
-                    {country_list.map((country, index) => (
-                      <option key={index} value={country}>{country}</option>
-                    ))}
-                </select>
-                <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500 dark:text-gray-400" />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
+          <div className={`transition-max-height duration-500 ease-in-out overflow-hidden ${isClientInfoOpen ? 'max-h-screen' : 'max-h-0'}`}>
+            <div className="space-y-4">
               <div>
-                <label className="block text-sm mb-1 text-gray-700 dark:text-gray-300">Currency</label>
-                <div className="relative">
-                  <select 
-                    className="w-full bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md py-2 pl-3 pr-10 text-sm text-gray-900 dark:text-white appearance-none"
-                    value={promptObject.currency}
-                    onChange={ (e) => setPromptObject( { ...promptObject, currency : e.target.value } ) }  
-                  >
-                    <option>Select currency</option>
-                    {currency_list.map((currency, index) => (
-                      <option key={index} value={currency}>{currency}</option>
-                    ))}
-                  </select>
-                  <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500 dark:text-gray-400" />
-                </div>
+          <label className="block text-sm mb-1 text-gray-700 dark:text-gray-300">Client Name</label>
+          <input
+            type="text"
+            placeholder="Enter client company name"
+            value={promptObject.client_name}
+            className="w-full bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md py-2 px-3 text-sm text-gray-900 dark:text-white placeholder-gray-500"
+            onChange={ (e) => setPromptObject( { ...promptObject, client_name : e.target.value } ) }
+          />
               </div>
 
               <div>
-                <label className="block text-sm mb-1 text-gray-700 dark:text-gray-300">Language</label>
-                <div className="relative">
-                  <select 
-                    className="w-full bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md py-2 pl-3 pr-10 text-sm text-gray-900 dark:text-white appearance-none"
-                    value={promptObject.language}
-                    onChange={ (e) => setPromptObject( { ...promptObject, language : e.target.value } ) }  
-                  >
-                    <option>Select language</option>
-                    {language_list.map((language, index) => (
-                      <option key={index} value={language}>{language}</option>
-                    ))}
-                  </select>
-                  <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500 dark:text-gray-400" />
-                </div>
+          <label className="block text-sm mb-1 text-gray-700 dark:text-gray-300">Country</label>
+          <div className="relative">
+            <select 
+              className="w-full bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md py-2 pl-3 pr-10 text-sm text-gray-900 dark:text-white appearance-none"
+              value={promptObject.country}
+              onChange={ (e) => setPromptObject( { ...promptObject, country : e.target.value } ) }
+            >
+              <option>Select country</option>
+              {country_list.map((country, index) => (
+            <option key={index} value={country}>{country}</option>
+                ))}
+            </select>
+            <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500 dark:text-gray-400" />
+          </div>
               </div>
+
+              <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm mb-1 text-gray-700 dark:text-gray-300">Currency</label>
+            <div className="relative">
+              <select 
+                className="w-full bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md py-2 pl-3 pr-10 text-sm text-gray-900 dark:text-white appearance-none"
+                value={promptObject.currency}
+                onChange={ (e) => setPromptObject( { ...promptObject, currency : e.target.value } ) }  
+              >
+                <option>Select currency</option>
+                {currency_list.map((currency, index) => (
+            <option key={index} value={currency}>{currency}</option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500 dark:text-gray-400" />
             </div>
           </div>
+
+          <div>
+            <label className="block text-sm mb-1 text-gray-700 dark:text-gray-300">Language</label>
+            <div className="relative">
+              <select 
+                className="w-full bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md py-2 pl-3 pr-10 text-sm text-gray-900 dark:text-white appearance-none"
+                value={promptObject.language}
+                onChange={ (e) => setPromptObject( { ...promptObject, language : e.target.value } ) }  
+              >
+                <option>Select language</option>
+                {language_list.map((language, index) => (
+            <option key={index} value={language}>{language}</option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500 dark:text-gray-400" />
+            </div>
+          </div>
+              </div>
+            </div>
+            </div>
         </div>
 
         {/* Select Proposal Template */}

@@ -73,7 +73,7 @@ export default function MainContent({ promptObject, setPromptObject, validateFor
 
     fetchData(prompt).then((response) => {
       setIsLoading(false);
-      setChatHistory(chatHistory => [...chatHistory, { text: response.proposal, isBot: true }]);
+      setChatHistory(chatHistory => [...chatHistory, { text: response.proposal, isBot: true, wordBinary: response.word_binary }]);
     });
   }
 
