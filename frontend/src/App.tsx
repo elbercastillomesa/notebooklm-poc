@@ -11,34 +11,38 @@ function App() {
   const [promptObject, setPromptObject] = useState(
     {
       prompt: "",
-      system_instruction: "Eres una persona muy importante en el desarrollo de propuestas técnicas, Director del área de Inteligencia Artificial, en donde tu enfoque es poder traer más clientes a la empresa.",
-      data_store_id: "projects/latam-gcp-project/locations/global/collections/default_collection/dataStores/sofia-datos-nisum_1738911346749_gcs_store",
-      project: "latam-gcp-project",
-      location: "us-central1",
       model_name: "gemini-2.0-flash-001",
-      temperature: 1,
+      creativity: 1,
       top_p: 0.95,
-      max_output_tokens: 500,
-      nombre_cliente: "",
-      pais: "",
-      moneda: ""
+      max_output_tokens: 3500,
+      client_name: "",
+      country: "",
+      currency: "",
+      language: ""
     }
   )
 
-  useEffect(() => {
-    console.log(promptObject)
-
-  }, [promptObject])
+  const [validateForm, setValidateForm] = useState(false)
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="sophia-theme">
       <div className="flex h-screen">
         <LeftSidebar />
         <div className="flex flex-col flex-1 overflow-hidden">
-          <Header />
+          {/* <Header /> */}
           <div className="flex flex-1 overflow-hidden">
-            <MainContent promptObject={promptObject} setPromptObject = {setPromptObject} />
-            <RightSidebar promptObject={promptObject} setPromptObject = {setPromptObject} />
+            <MainContent 
+              promptObject={promptObject} 
+              setPromptObject = {setPromptObject} 
+              validateForm = {validateForm} 
+              setValidateForm = {setValidateForm} 
+            />
+            <RightSidebar 
+              promptObject={promptObject} 
+              setPromptObject = {setPromptObject} 
+              validateForm = {validateForm} 
+              setValidateForm = {setValidateForm} 
+            />
           </div>
         </div>
       </div>

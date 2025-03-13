@@ -25,7 +25,7 @@ export default function ProgressSteps() {
                   </div>
   
                   {stepIdx < steps.length - 1 && (
-                    <div className="hidden md:block w-full bg-gray-300 dark:bg-gray-700 h-0.5 mx-4">
+                    <div className="hidden md:block w-10 bg-gray-300 dark:bg-gray-700 h-0.5 mx-4">
                       <div
                         className="bg-blue-600 h-0.5"
                         style={{ width: step.status === "current" ? "0%" : "100%" }}

@@ -1,4 +1,4 @@
-import { Brain, Lightbulb, Lock } from "lucide-react"
+import { Lightbulb, Lock, Palette } from "lucide-react"
 
 export default function ProposalCards() {
   const cards = [
@@ -10,7 +10,7 @@ export default function ProposalCards() {
     {
       title: "Capabilities",
       description: "Discover what the AI can do and how it enhances your experience",
-      icon: <Brain className="h-8 w-8 text-purple-400" />,
+      icon: <Palette className="h-8 w-8 text-purple-400" />,
     },
     {
       title: "Limitations",
