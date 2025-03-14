@@ -1,10 +1,11 @@
 import { Download } from 'lucide-react';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import "@/assets/css/global.css"
 
 export default function Bubble({ isBot, text, wordBinary }) {
 
-    const bubbleClass = isBot ? "self-start bg-blue-500 text-white p-3 rounded-lg max-w-full" : "self-end bg-gray-300 text-black p-3 rounded-lg max-w-full";
+    const bubbleClass = isBot ? "markdown-corrections self-start bg-blue-500 text-white p-3 rounded-lg max-w-full" : "self-end bg-gray-300 text-black p-3 rounded-lg max-w-full";
 
     const binaryToWord = () => {
         const byteCharacters = atob(wordBinary);
@@ -17,7 +18,7 @@ export default function Bubble({ isBot, text, wordBinary }) {
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = 'document.docx';
+        link.download = 'SophIA_Proposal_Draft.docx';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

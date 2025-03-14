@@ -14,7 +14,7 @@ function App() {
       model_name: "gemini-2.0-flash-001",
       creativity: 1,
       top_p: 0.95,
-      max_output_tokens: 3500,
+      max_output_tokens: 8192,
       client_name: "",
       country: "",
       currency: "",

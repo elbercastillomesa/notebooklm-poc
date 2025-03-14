@@ -10,7 +10,7 @@ export default function Header() {
           <div className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center">
             <User className="text-gray-700 w-5 h-5" />
           </div>
-          <span className="ml-2 text-sm text-black dark:text-white">Elber Castillo</span> 
+          <span className="ml-2 text-sm text-black dark:text-white">Imtiaz Mohammady</span> 
         </div>
       
     </header>

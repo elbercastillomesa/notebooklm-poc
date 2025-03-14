@@ -5,7 +5,15 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Copy package files and install dependencies
-COPY package.json package-lock.json ./
+
+#  Clear the npm cache
+RUN rm -rf node_modules \
+    && rm -f package-lock.json \
+    && rm -f yarn.lock \
+    && npm cache clean --force
+
+COPY package.json ./
+
 RUN npm install
 
 # Copy the rest of the project files
