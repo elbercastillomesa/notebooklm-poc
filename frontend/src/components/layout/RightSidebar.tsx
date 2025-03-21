@@ -6,14 +6,26 @@ import Header from "./Header"
 
 export default function RightSidebar({ promptObject, setPromptObject, validateForm, setValidateForm }) {
 
-  const model_list = ["gemini-2.0-flash-001", "Gemini 2.0", "GPT-4", "Claude 3"]
-  const country_list = ["United States", "Canada", "United Kingdom"]
-  const currency_list = ["USD", "EUR", "GBP"]
-  const language_list = ["English", "Spanish", "French"]
+  const model_list = {
+    "Flash": "gemini-2.0-flash-001", 
+    "Standard": "gemini-2.0-flash-001",
+    "Advanced": "gemini-2.0-flash-001"
+  }
+
+  const marketDetails = {
+    "Canada": { country: "Canada", language: "French", currency: "CAD" },
+    "Chile": { country: "Chile", language: "Spanish", currency: "CLP" },
+    "Colombia": { country: "Colombia", language: "Spanish", currency: "COP" },
+    "India": { country: "India", language: "English", currency: "INR" },
+    "Pakistan": { country: "Pakistan", language: "English", currency: "PKR" },
+    "Perú": { country: "Perú", language: "Spanish", currency: "PEN" },
+    "United Kingdom": { country: "United Kingdom", language: "English", currency: "GBP" },
+    "United States": { country: "United States", language: "English", currency: "USD" },
+  };
 
   const [selectedTemplate, setSelectedTemplate] = useState("Enterprise SaaS")
   const [creativity, setCreativity] = useState("1")
-  const [selectedModel, setSelectedModel] = useState(model_list[0])
+  const [selectedModel, setSelectedModel] = useState(model_list["Standard"])
   const [isClientInfoOpen, setIsClientInfoOpen] = useState(true)
   const [isProposalOpen, setIsProposalOpen] = useState(false)
   const [isOptionsOpen, setIsOptionsOpen] = useState(false)
@@ -55,11 +67,11 @@ export default function RightSidebar({ promptObject, setPromptObject, validateFo
                     onChange={(e) => setPromptObject({ ...promptObject, country: e.target.value })}
                   >
                     <option>Select country</option>
-                    {country_list.map((country, index) => (
+                    {Object.keys(marketDetails).map((country, index) => (
                       <option key={index} value={country}>{country}</option>
                     ))}
                   </select>
-                  <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500 dark:text-gray-400" />
+                  <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500 dark:text-gray-400 pointer-events-none" />
                 </div>
               </div>
 
@@ -73,11 +85,11 @@ export default function RightSidebar({ promptObject, setPromptObject, validateFo
                       onChange={(e) => setPromptObject({ ...promptObject, currency: e.target.value })}
                     >
                       <option>Select currency</option>
-                      {currency_list.map((currency, index) => (
-                        <option key={index} value={currency}>{currency}</option>
-                      ))}
+                        {Object.values(marketDetails).map((market, index) => (
+                        <option key={index} value={market.currency}>{market.currency}</option>
+                        ))}
                     </select>
-                    <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500 dark:text-gray-400" />
+                    <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500 dark:text-gray-400 pointer-events-none" />
                   </div>
                 </div>
 
@@ -90,11 +102,11 @@ export default function RightSidebar({ promptObject, setPromptObject, validateFo
                       onChange={(e) => setPromptObject({ ...promptObject, language: e.target.value })}
                     >
                       <option>Select language</option>
-                      {language_list.map((language, index) => (
+                        {[...new Set(Object.values(marketDetails).map((market) => market.language))].map((language, index) => (
                         <option key={index} value={language}>{language}</option>
-                      ))}
+                        ))}
                     </select>
-                    <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500 dark:text-gray-400" />
+                    <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500 dark:text-gray-400 pointer-events-none" />
                   </div>
                 </div>
               </div>
@@ -117,35 +129,37 @@ export default function RightSidebar({ promptObject, setPromptObject, validateFo
               <label className="flex items-center space-x-2">
                 <input
                   type="radio"
-                  name="template"
+                  name="template"                  
                   checked={selectedTemplate === "Enterprise SaaS"}
                   onChange={() => setSelectedTemplate("Enterprise SaaS")}
                   className="h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-600"
-                  disabled checked
+                  disabled
                 />
-                <span className="text-gray-900 dark:text-white">Enterprise SaaS</span>
+                <span className="text-gray-900 dark:text-white">Technical Proposal</span>
               </label>
 
               <label className="flex items-center space-x-2">
                 <input
                   type="radio"
-                  name="template"
+                  name="template"                  
                   checked={selectedTemplate === "Cloud Migration"}
                   onChange={() => setSelectedTemplate("Cloud Migration")}
                   className="h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-600"
+                  disabled
                 />
-                <span className="text-gray-900 dark:text-white">Cloud Migration</span>
+                <span className="text-gray-900 dark:text-white">Request for RFP</span>
               </label>
 
               <label className="flex items-center space-x-2">
                 <input
                   type="radio"
-                  name="template"
+                  name="template"                  
                   checked={selectedTemplate === "Consulting"}
                   onChange={() => setSelectedTemplate("Consulting")}
                   className="h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-600"
+                  disabled
                 />
-                <span className="text-gray-900 dark:text-white">Consulting</span>
+                <span className="text-gray-900 dark:text-white">Business Proposal</span>
               </label>
             </div>
           </div>
@@ -174,15 +188,14 @@ export default function RightSidebar({ promptObject, setPromptObject, validateFo
             <div className="flex items-center justify-between">
               <span className="text-sm text-gray-900 dark:text-white">Suggest Pricing</span>
               <label className="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" className="sr-only peer" disabled checked />
                 <div className="w-9 h-5 bg-gray-300 dark:bg-gray-700 rounded-full peer peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600 peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
               </label>
             </div>
 
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-900 dark:text-white">Include Case Studies</span>
+              <span className="text-sm text-gray-900 dark:text-white">Include Sucess Stories</span>
               <label className="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" className="sr-only peer" disabled />
+                <input type="checkbox" className="sr-only peer" disabled checked />
                 <div className="w-9 h-5 bg-gray-300 dark:bg-gray-700 rounded-full peer peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600 peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
               </label>
             </div>
@@ -208,15 +221,17 @@ export default function RightSidebar({ promptObject, setPromptObject, validateFo
                 <label className="text-sm text-gray-900 dark:text-white">Model</label>
               </div>
               <div className="relative">
-                <select
+                  <select
                   className="w-full bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md py-2 pl-3 pr-10 text-sm text-gray-900 dark:text-white appearance-none"
-                  onChange={(e) => setPromptObject({ ...promptObject, model_name: e.target.value })}
-                >
-                  {model_list.map((model, index) => (
-                    <option key={index} value={model}>{model}</option>
-                  ))}
-                </select>
-                <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500 dark:text-gray-400" />
+                  value={promptObject.model_name}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setPromptObject({ ...promptObject, model_name: e.target.value })}
+                  >
+                    <option>Select model</option>
+                    {Object.entries(model_list).map(([key, value], index) => (
+                    <option key={index} value={value as string}>{key}</option>
+                    ))}
+                  </select>
+                  <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500 dark:text-gray-400 pointer-events-none" />
               </div>
             </div>
 

@@ -11,7 +11,7 @@ function App() {
   const [promptObject, setPromptObject] = useState(
     {
       prompt: "",
-      model_name: "gemini-2.0-flash-001",
+      model_name: "",
       creativity: 1,
       top_p: 0.95,
       max_output_tokens: 8192,
